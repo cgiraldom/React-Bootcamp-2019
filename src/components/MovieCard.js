@@ -1,5 +1,7 @@
 import React from 'react';
 
+const IMG_PATH = 'https://image.tmdb.org/t/p/original';
+
 class MovieCard extends React.Component {
   state = {
     checked: false,
@@ -40,7 +42,9 @@ class MovieCard extends React.Component {
   }
   
   render() {
-    const { id, title, year, image, overview, deleteMovie } = this.props
+    const { id, title, year, poster_path, overview, deleteMovie } = this.props
+    const image = IMG_PATH + poster_path;
+    
     return <div className='movie-container'>   
         <div className='favourite-container'>
             <button onClick={this.handleCheck} className='favourite-button'>

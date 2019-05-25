@@ -2,13 +2,15 @@ import React from 'react';
 import moviesData from '../data/movies.json'
 import MovieCard from '../components/MovieCard'
 
+const API_KEY = '1b4b4be565470a1bc52b46649f9b97d0';
+
 class Home extends React.Component {
   state = {
-   ...moviesData,
+    ...moviesData
   }
 
   deleteMovie = (movieId) => {
-    this.setState((state, props) => {
+    this.setState((state) => {
       const movies = state.movies.filter((movie) => movie.id !== movieId)
       return  {
         movies
@@ -16,6 +18,17 @@ class Home extends React.Component {
     })
   }
 
+  componentDidMount() {
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      this.setState(() => {
+        return {movies: data.results};
+      });
+    });
+  }
 
     render() {
         const { movies } = this.state
